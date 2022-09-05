@@ -29,8 +29,7 @@ public:
     // UNARY OPERATORS
     //--------------------------------------------//
 
-    PyString operator-(); // "-" Unary operator that returns the object with lower cases
-    bool operator!();     // "-" Unary operator that returns true if the string is empty
+    bool operator!(); // "-" Unary operator that returns true if the string is empty
 
     //--------------------------------------------//
     // BINARY OPERATORS
@@ -60,9 +59,9 @@ public:
     PyString &center(int total_chars, char fill_char); // Returns a centered string
     bool endswith();                                   // Returns true if the string ends with the specified value
     bool isdigit();                                    // Returns True if all characters in the string are digits
-    PyString &lower();                                 // Converts a string into lower case
-    PyString &upper();                                 // Converts a string into upper case
-    PyString &zfill(int fill_count);                   // Fills the string with a specified number of 0 values at the beginning
+    PyString lower();                                  // Converts a string into lower case
+    PyString upper();                                  // Converts a string into upper case
+    PyString zfill(int fill_count);                    // Fills the string with a specified number of 0 values at the beginning
 };
 
 #endif

@@ -83,23 +83,6 @@ PyString &PyString::operator=(PyString &&rhs)
 // UNARY OPERATORS
 //--------------------------------------------//
 
-PyString PyString::operator-()
-{
-    char *buff = new char[std::strlen(str) + 1];
-    std::strcpy(buff, str);
-
-    for (size_t i{0}; i < std::strlen(buff); i++)
-    {
-        buff[i] = std::tolower(buff[i]);
-    }
-
-    PyString temp(buff);
-
-    delete[] buff;
-
-    return temp;
-}
-
 bool PyString::operator!()
 {
     if ((int)length() == 0)
@@ -445,4 +428,21 @@ std::vector<PyString> PyString::split(const char *separator)
     }
 
     return final_vector;
+}
+
+PyString PyString::lower()
+{
+    char *buff = new char[std::strlen(str) + 1];
+    std::strcpy(buff, str);
+
+    for (size_t i{0}; i < std::strlen(buff); i++)
+    {
+        buff[i] = std::tolower(buff[i]);
+    }
+
+    PyString temp(buff);
+
+    delete[] buff;
+
+    return temp;
 }
