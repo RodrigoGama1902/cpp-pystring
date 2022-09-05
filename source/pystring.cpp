@@ -446,3 +446,20 @@ PyString PyString::lower()
 
     return temp;
 }
+
+PyString PyString::upper()
+{
+    char *buff = new char[std::strlen(str) + 1];
+    std::strcpy(buff, str);
+
+    for (size_t i{0}; i < std::strlen(buff); i++)
+    {
+        buff[i] = std::toupper(buff[i]);
+    }
+
+    PyString temp(buff);
+
+    delete[] buff;
+
+    return temp;
+}

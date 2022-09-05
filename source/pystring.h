@@ -52,6 +52,8 @@ public:
     int find(const char *find_string, size_t start = 0, size_t end = 0); // Searches the string for a specified value and returns the position of where it was found
     int count(const char *find_string);                                  // Returns the number of times a specified value occurs in a string
     std::vector<PyString> split(const char *separator);                  // Splits the string at the specified separator, and returns a vector
+    PyString lower();                                                    // Converts a string into lower case
+    PyString upper();                                                    // Converts a string into upper case
 
     // Not implemented yet
 
@@ -59,8 +61,6 @@ public:
     PyString &center(int total_chars, char fill_char); // Returns a centered string
     bool endswith();                                   // Returns true if the string ends with the specified value
     bool isdigit();                                    // Returns True if all characters in the string are digits
-    PyString lower();                                  // Converts a string into lower case
-    PyString upper();                                  // Converts a string into upper case
     PyString zfill(int fill_count);                    // Fills the string with a specified number of 0 values at the beginning
 };
 
