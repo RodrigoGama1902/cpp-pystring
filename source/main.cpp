@@ -5,10 +5,29 @@
 int main()
 {
 
-    PyString a = "aloutestealoutestealouteste";
-    // PyString b = a.replace("alou", "_");
+    PyString a = "_MY_STRING_TEST_";
 
-    std::vector<PyString> myvector = a.split("teste");
+    std::cout << a << " -> Original String" << std::endl;
+
+    a = a.replace("_", " ");
+    std::cout << a << " -> Replace Method" << std::endl;
+
+    a = a.strip();
+    std::cout << a << " -> Strip Method" << std::endl;
+
+    a = a.lower();
+    std::cout << a << " -> Lower Method" << std::endl;
+
+    a = a.title();
+    std::cout << a << " -> Title Method" << std::endl;
+
+    a = a.insert(3, "Python");
+    std::cout << a << " -> Insert Method" << std::endl;
+
+    a = a.replace("Python", "Py");
+    std::cout << a << " -> Replace Method" << std::endl;
+
+    std::vector<PyString> myvector = a.split(" ");
 
     for (auto i : myvector)
     {
