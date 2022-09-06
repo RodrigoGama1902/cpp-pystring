@@ -4,19 +4,10 @@
 int main()
 {
 
-    PyString a = "--SPLIT--THIS--TEXT--";
+    PyString a = "test   ";
 
-    std::vector<PyString> return_vector;
-
-    a = a.lower();
-    a = a.upper();
-
-    return_vector = a.split("--");
-
-    for (auto i : return_vector)
-    {
-        std::cout << i << std::endl;
-    }
+    a = a.capitalize();
+    std::cout << a << std::endl;
 
     return 0;
 }

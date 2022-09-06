@@ -463,3 +463,25 @@ PyString PyString::upper()
 
     return temp;
 }
+
+PyString PyString::capitalize()
+{
+
+    char *buff = new char[std::strlen(str) + 1];
+    std::strcpy(buff, str);
+
+    for (size_t i{0}; i < std::strlen(buff); i++)
+    {
+        if (buff[i] != ' ')
+        {
+            buff[i] = std::toupper(buff[i]);
+            break;
+        }
+    }
+
+    PyString temp(buff);
+
+    delete[] buff;
+
+    return temp;
+}

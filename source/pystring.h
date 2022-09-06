@@ -54,10 +54,10 @@ public:
     std::vector<PyString> split(const char *separator);                  // Splits the string at the specified separator, and returns a vector
     PyString lower();                                                    // Converts a string into lower case
     PyString upper();                                                    // Converts a string into upper case
+    PyString capitalize();                                               // Converts the first character to upper case
 
     // Not implemented yet
 
-    PyString &capitalize();                            // Converts the first character to upper case
     PyString &center(int total_chars, char fill_char); // Returns a centered string
     bool endswith();                                   // Returns true if the string ends with the specified value
     bool isdigit();                                    // Returns True if all characters in the string are digits
