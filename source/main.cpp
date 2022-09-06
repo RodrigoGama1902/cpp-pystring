@@ -4,10 +4,10 @@
 int main()
 {
 
-    PyString a = "test another ";
-    PyString b = a.insert(0, "teste");
+    PyString a = "teste testea";
+    PyString b = a.replace("teste", "this");
 
-    std::cout << a << std::endl;
+    // std::cout << a << std::endl;
     std::cout << b << std::endl;
 
     return 0;

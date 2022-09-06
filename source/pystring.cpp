@@ -190,7 +190,7 @@ PyString PyString::strip()
 
     for (size_t i{0}, j{string_start}; i < final_buff_size; i++, j++)
     {
-        if (i == (final_buff_size - 1))
+        if (i == (buff_size))
         {
             buff[i] = '\0';
             break;
@@ -248,26 +248,18 @@ PyString PyString::title() // TODO Finish title function
 PyString PyString::slice(int index_start = 0, int index_end = 0)
 {
 
-    // if (index_end == 0)
-    //{
-    //     index_end = length();
-    // }
-
     int buff_size{index_end - index_start};
     char *buff = new char[buff_size + 1];
 
-    for (int i{index_start}, j{0}; i <= index_end; i++, j++)
+    for (int i{index_start}, j{0}; i < index_end; i++, j++)
     {
         buff[j] = str[i];
     }
 
-    buff[buff_size + 1] = '\0';
+    buff[buff_size] = '\0';
 
     PyString string_slice(buff);
-
-    buff = nullptr;
     delete[] buff;
-
     return string_slice;
 }
 
@@ -275,7 +267,7 @@ PyString PyString::insert(size_t index, const char *string)
 {
 
     PyString slice_1(slice(0, index));
-    PyString slice_2(slice(index + 1, length()));
+    PyString slice_2(slice(index, length()));
     PyString insert_string(string);
 
     PyString final_string(slice_1 + insert_string + slice_2);
@@ -286,9 +278,11 @@ PyString PyString::insert(size_t index, const char *string)
 PyString &PyString::remove(size_t index, size_t until_index)
 {
 
-    PyString slice_1(slice(0, index - 1));
+    PyString slice_1(slice(0, index));
     PyString slice_2(slice(index + until_index, length()));
     PyString final_string(slice_1 + slice_2);
+
+    std::cout << final_string << std::endl;
 
     delete[] str;
     str = final_string.str;
@@ -351,8 +345,8 @@ PyString &PyString::replace(const char *find, const char *replace)
             break;
         }
 
-        temp.remove(current_found, std::strlen(find)); // remove the old string find
-        temp.insert(current_found - 1, replace);       // insert the replace string
+        temp = temp.remove(current_found, std::strlen(find)); // remove the old string find
+        temp = temp.insert(current_found, replace);           // insert the replace string
 
         current_start = current_found + std::strlen(replace);
     }
