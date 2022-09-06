@@ -4,10 +4,11 @@
 int main()
 {
 
-    PyString a = "test   ";
+    PyString a = "test another ";
+    PyString b = a.insert(0, "teste");
 
-    a = a.capitalize();
     std::cout << a << std::endl;
+    std::cout << b << std::endl;
 
     return 0;
 }

@@ -153,7 +153,7 @@ size_t PyString::length() const
     return std::strlen(str);
 }
 
-PyString &PyString::strip()
+PyString PyString::strip()
 {
 
     size_t string_start = 0;
@@ -199,16 +199,12 @@ PyString &PyString::strip()
         buff[i] = str[j];
     }
 
-    delete[] str;
-    str = buff;
-
-    buff = nullptr;
+    PyString temp(buff);
     delete[] buff;
-
-    return *this;
+    return temp;
 }
 
-PyString &PyString::title() // TODO Finish title function
+PyString PyString::title() // TODO Finish title function
 {
 
     size_t final_buff_size = length() + 1;
@@ -244,21 +240,18 @@ PyString &PyString::title() // TODO Finish title function
         }
     }
 
-    delete[] str;
-    str = buff;
-    buff = nullptr;
+    PyString temp(buff);
     delete[] buff;
-
-    return *this;
+    return temp;
 }
 
 PyString PyString::slice(int index_start = 0, int index_end = 0)
 {
 
-    if (index_end == 0)
-    {
-        index_end = length();
-    }
+    // if (index_end == 0)
+    //{
+    //     index_end = length();
+    // }
 
     int buff_size{index_end - index_start};
     char *buff = new char[buff_size + 1];
@@ -278,7 +271,7 @@ PyString PyString::slice(int index_start = 0, int index_end = 0)
     return string_slice;
 }
 
-PyString &PyString::insert(size_t index, const char *string)
+PyString PyString::insert(size_t index, const char *string)
 {
 
     PyString slice_1(slice(0, index));
@@ -287,11 +280,7 @@ PyString &PyString::insert(size_t index, const char *string)
 
     PyString final_string(slice_1 + insert_string + slice_2);
 
-    delete[] str;
-    str = final_string.str;
-    final_string.str = nullptr;
-
-    return *this;
+    return final_string;
 }
 
 PyString &PyString::remove(size_t index, size_t until_index)
