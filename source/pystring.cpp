@@ -46,7 +46,7 @@ PyString::~PyString()
 // Copy Assignment
 PyString &PyString::operator=(const PyString &rhs)
 {
-    std::cout << "Copy Assignment" << std::endl;
+    // std::cout << "Copy Assignment" << std::endl;
 
     if (this == &rhs)
     {
@@ -64,7 +64,7 @@ PyString &PyString::operator=(const PyString &rhs)
 // Move Assignment
 PyString &PyString::operator=(PyString &&rhs)
 {
-    std::cout << "Move Assignment" << std::endl;
+    // std::cout << "Move Assignment" << std::endl;
 
     if (this == &rhs)
     {
@@ -240,9 +240,9 @@ PyString PyString::title() // TODO Finish title function
         }
     }
 
-    PyString temp(buff);
+    PyString title_string(buff);
     delete[] buff;
-    return temp;
+    return title_string;
 }
 
 PyString PyString::slice(int index_start = 0, int index_end = 0)
@@ -275,20 +275,16 @@ PyString PyString::insert(size_t index, const char *string)
     return final_string;
 }
 
-PyString &PyString::remove(size_t index, size_t until_index)
+PyString PyString::remove(size_t index, size_t until_index)
 {
 
     PyString slice_1(slice(0, index));
     PyString slice_2(slice(index + until_index, length()));
     PyString final_string(slice_1 + slice_2);
 
-    std::cout << final_string << std::endl;
+    // std::cout << final_string << std::endl;
 
-    delete[] str;
-    str = final_string.str;
-    final_string.str = nullptr;
-
-    return *this;
+    return final_string;
 }
 
 int PyString::find(const char *find_string, size_t start, size_t end)
@@ -329,34 +325,29 @@ int PyString::find(const char *find_string, size_t start, size_t end)
     return -1;
 }
 
-PyString &PyString::replace(const char *find, const char *replace)
+PyString PyString::replace(const char *find, const char *replace)
 {
 
-    PyString temp(str);
+    PyString replaced_string(str);
     int current_start{0};
     int current_found{0};
 
     while (current_found != -1)
     {
-        current_found = temp.find(find, current_start, 0);
+        current_found = replaced_string.find(find, current_start, 0);
 
         if (current_found == -1)
         {
             break;
         }
 
-        temp = temp.remove(current_found, std::strlen(find)); // remove the old string find
-        temp = temp.insert(current_found, replace);           // insert the replace string
+        replaced_string = replaced_string.remove(current_found, std::strlen(find)); // remove the old string find
+        replaced_string = replaced_string.insert(current_found, replace);           // insert the replace string
 
         current_start = current_found + std::strlen(replace);
     }
 
-    delete[] str;
-    str = temp.str;
-    temp.str = nullptr;
-    delete[] temp.str;
-
-    return *this;
+    return replaced_string;
 }
 
 int PyString::count(const char *find_string)
@@ -395,11 +386,12 @@ std::vector<PyString> PyString::split(const char *separator)
 
         if (current_found == -1)
         {
-            final_vector.push_back(slice(current_start, 0)); // Pushback the last splitted item, since there is no more separators
+            PyString final_slice = slice(current_start, length());
+            final_vector.push_back(final_slice); // Pushback the last splitted item, since there is no more separators
             break;
         }
 
-        PyString splitted_string = slice(current_start, current_found - 1);
+        PyString splitted_string = slice(current_start, current_found);
         current_start = current_found + std::strlen(separator);
 
         if (!splitted_string) // Ignoring empty strings
