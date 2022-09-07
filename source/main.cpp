@@ -27,6 +27,9 @@ int main()
     a = a.replace("Python", "Py");
     std::cout << a << " -> Replace Method" << std::endl;
 
+    a = a.remove(11, 16); // TODO Remove method seconds parameter should be "remove until the next index", not the amount of index to remove next
+    std::cout << a << " -> Remove Method" << std::endl;
+
     std::vector<PyString> myvector = a.split(" ");
 
     for (auto i : myvector)

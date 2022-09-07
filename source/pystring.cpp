@@ -279,7 +279,7 @@ PyString PyString::remove(size_t index, size_t until_index)
 {
 
     PyString slice_1(slice(0, index));
-    PyString slice_2(slice(index + until_index, length()));
+    PyString slice_2(slice(until_index, length()));
     PyString final_string(slice_1 + slice_2);
 
     // std::cout << final_string << std::endl;
@@ -341,8 +341,8 @@ PyString PyString::replace(const char *find, const char *replace)
             break;
         }
 
-        replaced_string = replaced_string.remove(current_found, std::strlen(find)); // remove the old string find
-        replaced_string = replaced_string.insert(current_found, replace);           // insert the replace string
+        replaced_string = replaced_string.remove(current_found, current_found + std::strlen(find)); // remove the old string find
+        replaced_string = replaced_string.insert(current_found, replace);                           // insert the replace string
 
         current_start = current_found + std::strlen(replace);
     }
